@@ -1,0 +1,21 @@
+{
+  "name": "es6-react-component",
+  "version": "1.0.0",
+  "description": "ES6 ReactJS component using module pattern without classes.",
+  "main": "app.js",
+  "respository": "git@github.com:robmclarty/es6-react-component.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rob McLarty",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^5.6.23",
+    "browserify": "^11.0.0",
+    "gulp": "^3.9.0",
+    "gulp-watch": "^4.3.3",
+    "gulp-webserver": "^0.9.1",
+    "react": "^0.14.0-beta1",
+    "react-dom": "^0.14.0-beta1"
+  }
+}
