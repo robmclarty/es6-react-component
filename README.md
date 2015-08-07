@@ -76,8 +76,9 @@ glance at the list of public properties that are listed at the end.
 
 The only thing that could possibly be considered "wierd" is the way that the
 event handlers are called (but this problem exists for classical components as
-well. I've made use of the new fat arrow function definition
-of ES6 to invoke the component's event handlers in order to take advantage of
+well). I've made use of the new
+[fat arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
+definition of ES6 to invoke the component's event handlers in order to take advantage of
 its binding of `this` to the function. `React.createClass` does some
 [autobinding behind the scenes](https://facebook.github.io/react/docs/interactivity-and-dynamic-uis.html#under-the-hood-autobinding-and-event-delegation)
 so you don't have to think about this. It could also be written
