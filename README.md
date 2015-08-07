@@ -1,4 +1,4 @@
-# ES6 React Component
+# Class-free ES6 React Component
 
 This is my attempt at defining a pattern for building class-free React
 components using
