@@ -1,2 +1,5 @@
 .DS_Store
 node_modules
+public/javascripts/**/*
+public/stylesheets/**/*
+public/index.html

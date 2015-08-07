@@ -3,55 +3,47 @@
 import React from 'react';
 import assign from 'object-assign';
 
-// Module pattern for creating a component:
-let extend = function (target, source) {
-  Object.keys(source).forEach(function (key) {
-    if (typeof target[key] !== 'undefined') {
-      return;
-    }
-    target[key] = source[key];
-  });
+let state = {
+  someState: 'Default state value.'
 };
 
-let BasicComponent = function (props, context) {
-  const propTypes = {
-    message: React.PropTypes.string
-  };
-  const defaultProps = {
-    message: ''
-  };
+function componentDidMount() {
+  console.log('Basic Component mounted.');
+}
 
-  let render = function () {
-    return (
-      <div>{this.props.message}</div>
-    );
-  };
+function onEvent(e) {
+  e.preventDefault();
 
+  let input = this.refs.myInput;
+
+  if (input.value) {
+    this.setState({ someState: input.value });
+    input.value = '';
+  }
+}
+
+function render() {
+  return (
+    <div>
+      <div>Props Message: {this.props.message}</div>
+      <div>State Value: {this.state.someState}</div>
+      <div>
+        <input type="text" ref="myInput" placeholder="Type something" />
+        <button onClick={e => this.onEvent(e)}>Change State Value</button>
+      </div>
+    </div>
+  );
+}
+
+function BasicComponent(props, context) {
   return assign({}, React.Component.prototype, {
     props,
-    propTypes,
-    defaultProps,
     context,
+    state,
+    componentDidMount,
+    onEvent,
     render
   });
-};
-
-// Classic method of creating component:
-//
-// let BasicComponent = React.createClass({
-//   propTypes: {
-//     message: React.PropTypes.string
-//   },
-
-//   defaultProps: {
-//     message: ''
-//   },
-
-//   render: function () {
-//     return (
-//       <div>{this.props.message}</div>
-//     );
-//   }
-// });
+}
 
 export default BasicComponent;
