@@ -13,7 +13,7 @@ and
 
 ## Usage
 
-1. run `gulp` from the root of the root project directory
+1. run `gulp` from the root of the project directory
 2. open `http://localhost:3000` in your web browser
 
 ## Why?
