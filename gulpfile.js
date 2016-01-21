@@ -1,24 +1,21 @@
 'use strict';
 
-import gulp from 'gulp';
-import webserver from 'gulp-webserver';
-import watch from 'gulp-watch';
-import babel from 'babel-core/register';
-import browserify from 'browserify';
-import babelify from 'babelify';
-import source from 'vinyl-source-stream';
-import buffer from 'vinyl-buffer';
-import uglify from 'gulp-uglify';
-import sourcemaps from 'gulp-sourcemaps';
-import concat from 'gulp-concat';
-import rename from 'gulp-rename';
-import replace from 'gulp-replace';
-import util from 'gulp-util';
+const gulp = require('gulp');
+const webserver = require('gulp-webserver');
+const watch = require('gulp-watch');
+const browserify = require('browserify');
+const babelify = require('babelify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const uglify = require('gulp-uglify');
+const sourcemaps = require('gulp-sourcemaps');
+const concat = require('gulp-concat');
+const rename = require('gulp-rename');
+const replace = require('gulp-replace');
 
 const vendors = [
   'react',
-  'react-dom',
-  'object-assign'
+  'react-dom'
 ];
 
 // Vendors don't change during development, so save them to a separate file to
@@ -60,7 +57,6 @@ gulp.task('app', function () {
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(replace(/'use strict';/g, ''))
     .pipe(uglify())
-    .on('error', util.log)
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('public/javascripts'));
 });
