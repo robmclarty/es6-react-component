@@ -32,7 +32,7 @@ I feel like the whole classical inheritance thing is just too much work:
 - you have to remember what's up in the hierarchy that's there even though you can't see it
 - class hierarchies are brittle (e.g., taxonomies break down with the platypus effect) making them hard to change (and code is always changing)
 
-And besides classes, there's always be `this`. `this` is hard to talk about and
+And besides classes, there's always been `this`. `this` is hard to talk about nor
 clearly communicate just what `this` is. Is `this` `this`, or `this`? Which
 `this` is `this`? What *is* `this`!? Getting lost in a hierarchy of bound thises
 has always caused Javascript developers headaches. Why not just get rid of `this`
