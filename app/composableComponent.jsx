@@ -1,3 +1,7 @@
+// This ComposableComponent uses Object.assign to compose a React component
+// from the React.Component.prototype and a mix of custom functions, some of
+// which will override the defaults of the prototype (e.g., render()).
+
 'use strict';
 
 import React from 'react';
@@ -47,8 +51,9 @@ function render() {
   );
 }
 
-function BasicComponent(props, context) {
+function ComposableComponent(props, context) {
   return Object.assign({}, React.Component.prototype, {
+    displayName: 'MyComponent',
     props,
     context,
     state: initialState,
@@ -58,7 +63,7 @@ function BasicComponent(props, context) {
   });
 }
 
-BasicComponent.propTypes = propTypes;
-BasicComponent.defaultProps = defaultProps;
+ComposableComponent.propTypes = propTypes;
+ComposableComponent.defaultProps = defaultProps;
 
-export default BasicComponent;
+export default ComposableComponent;

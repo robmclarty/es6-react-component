@@ -1,3 +1,9 @@
+// This is a variation of ComposableComponent which aims to get rid of `this`
+// and instead refer to `component` (which is a React.Component) explicitly so
+// it is absolutely clear just where things like .props, .state, and .setState()
+// are coming from. This, so far, is my preferred method of React component
+// composition.
+
 'use strict';
 
 import React from 'react';
@@ -62,8 +68,9 @@ function render() {
 }
 
 // Implement React component attributes and methods.
-function BasicComponent(props, context) {
+function ComposableComponent(props, context) {
   return Object.assign(component, {
+    displayName: 'MyComponent',
     props,
     context,
     state: initialState,
@@ -74,8 +81,8 @@ function BasicComponent(props, context) {
 }
 
 // Assign static properties.
-BasicComponent.propTypes = propTypes;
-BasicComponent.defaultProps = defaultProps;
+ComposableComponent.propTypes = propTypes;
+ComposableComponent.defaultProps = defaultProps;
 
 // Export the result of BasicComponent function.
-export default BasicComponent;
+export default ComposableComponent;

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BasicComponent from './basicComponent2.jsx';
+import MyComponent from './thisFreeComposableComponent.jsx';
 
 ReactDOM.render(
-  <BasicComponent message="This is my component." />,
+  <MyComponent message="This is my component." />,
   document.getElementById('app-container')
 );
