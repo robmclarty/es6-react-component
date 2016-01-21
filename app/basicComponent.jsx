@@ -1,9 +1,16 @@
 'use strict';
 
 import React from 'react';
-import assign from 'object-assign';
 
-let state = {
+const propTypes = {
+  message: React.PropTypes.string
+};
+
+const defaultProps = {
+  message: 'Default message'
+};
+
+const initialState = {
   someState: 'Default state value.'
 };
 
@@ -11,10 +18,15 @@ function componentDidMount() {
   console.log('Basic Component mounted.');
 }
 
+function shouldComponentUpdate(nextProps, nextState) {
+  return nextProps.message !== this.props.message ||
+      nextState.someState !== this.state.someState;
+}
+
 function onEvent(e) {
   e.preventDefault();
 
-  let input = this.refs.myInput;
+  const input = this.refs.myInput;
 
   if (input.value) {
     this.setState({ someState: input.value });
@@ -36,14 +48,17 @@ function render() {
 }
 
 function BasicComponent(props, context) {
-  return assign({}, React.Component.prototype, {
+  return Object.assign({}, React.Component.prototype, {
     props,
     context,
-    state,
+    state: initialState,
     componentDidMount,
     onEvent,
     render
   });
 }
+
+BasicComponent.propTypes = propTypes;
+BasicComponent.defaultProps = defaultProps;
 
 export default BasicComponent;

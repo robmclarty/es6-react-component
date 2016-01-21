@@ -21,7 +21,7 @@ const vendors = [
 // Vendors don't change during development, so save them to a separate file to
 // make rebuilding the app faster.
 gulp.task('vendors', function () {
-  let stream = browserify({
+  const stream = browserify({
     debug: false,
     require: vendors
   });
@@ -38,13 +38,16 @@ gulp.task('vendors', function () {
 // sourcemaps, use browserify for CommonJS and output to
 // 'public/javascripts/application.js' as ES5.
 gulp.task('app', function () {
-  let stream = browserify({
-    entries: ['./app/app.jsx'],
-    transform: [babelify],
-    debug: true,
-    extensions: ['.jsx'],
-    fullPaths: false
-  });
+  const stream = browserify({
+      entries: ['./app/app.jsx'],
+      debug: true,
+      extensions: ['.jsx'],
+      fullPaths: false
+    })
+    .transform(babelify.configure({
+      presets: ['es2015', 'react'],
+      plugins: ['transform-object-assign']
+    }));
 
   vendors.forEach(function (vendor) {
     stream.external(vendor);
