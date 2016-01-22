@@ -1,7 +1,7 @@
 {
   "name": "es6-react-component",
   "version": "1.1.0",
-  "description": "ES6 ReactJS component using module pattern without classes.",
+  "description": "Examples of different patterns for composing React components using ES6.",
   "main": "app/app.jsx",
   "repository": {
     "type": "git",

@@ -1,10 +1,9 @@
-# Class-free ES6 React Component
+# ES6 React Component Patterns
 
-This is my attempt at defining a pattern for building class-free (and this-free)
-React components using
+This is my attempt at defining various patterns for building React components using
 [ES6 syntax](https://people.mozilla.org/~jorendorff/es6-draft.html)
 and
-[React 0.14.4](https://facebook.github.io/react/blog/2015/07/03/react-v0.14-beta-1.html).
+[React 0.14.4](https://facebook.github.io/react/blog/2015/12/29/react-v0.14.4.html).
 It is transpiled using
 [Babel](https://babeljs.io/),
 [Browserify](http://browserify.org/),
@@ -16,7 +15,18 @@ and
 1. run `gulp` from the root of the project directory
 2. open `http://localhost:3000` in your web browser
 
+### Swap different components
+
+Open `src/app.jsx` and change the import for `MyComponent` to point to a
+different example from the `src` folder. It is set up by default to use the
+`composableComponentNoThis.jsx` example.
+
 ## Why?
+
+My personal goal has been to devise a more "functional" pattern which is
+class-free (and this-free) in an attempt to be simple, concise, and explicit. My
+belief is that by organizing my code in this way, I may reduce errors and make
+it easier for newcomers to understand, thus increasing overall team velocity.
 
 I'm not a big fan of `class`. I feel like it hides the underlying language from
 new users who might expect `class` to act like, say, a Java class, when in fact
@@ -32,12 +42,6 @@ I feel like the whole classical inheritance thing is just too much work:
 - you have to remember what's up in the hierarchy that's there even though you can't see it
 - class hierarchies are brittle (e.g., taxonomies break down with the platypus effect) making them hard to change (and code is always changing)
 
-And besides classes, there's always been `this`. `this` is hard to talk about nor
-clearly communicate just what `this` is. Is `this` `this`, or `this`? Which
-`this` is `this`? What *is* `this`!? Getting lost in a hierarchy of bound thises
-has always caused Javascript developers headaches. Why not just get rid of `this`
-and be more explicit, and avoid all the confusion?
-
 I don't see the value of adding all this overhead to an otherwise simple, concise,
 yet highly expressive language. Javascript is easy. All you have to know is:
 
@@ -46,6 +50,19 @@ yet highly expressive language. Javascript is easy. All you have to know is:
 - there's object literals (a box of primitives, functions, or other object literals)
 
 ...and that's pretty much all you need to know about Javascript to get started.
+
+And besides classes, there's always been `this`. `this` is hard to talk about and
+difficult to clearly communicate just what `this` is. Is `this` `this`, or
+`this`? Which `this` is `this`? Is it this `this`? What *is* `this`!? Getting
+lost in a hierarchy of bound thises has always caused Javascript developers
+headaches. Why not just get rid of `this` and be more explicit, and avoid all
+the confusion?
+
+What I'm looking for is a simple, non-fancy way of composing modules (like
+React components) which is obvious (explicit) and flexible (composable). I don't
+want to be forced into someone else's rigid class taxonomy. I just want to grab
+the stuff I want, ignore the stuff I don't want, and mash it together into an
+object I can work with.
 
 Computer programs are some of the most complicated things that humans work on.
 I feel like they don't need to be made more complicated by adding on a bunch of
@@ -63,8 +80,11 @@ This repository is my attempt to create a React component, using ES6 syntax,
 without using `class` (or `React.createClass`) or `this`, using only simple
 functions. I specifically make use of
 [Object.assign](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Object/assign)
-to create objects that are an augmentation of the React.Component.prototype from
-a set of functions and variables defined in a module.
+to create objects through composition (including only the properties I want) to
+start with the React.Component.prototype, and then augment it to something more
+specific, which is my custom component, but defined using core JS language
+features, simply, as a set of variables and functions and object literals
+without any black magic.
 
 ## Style
 
