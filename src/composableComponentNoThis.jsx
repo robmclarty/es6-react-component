@@ -61,7 +61,7 @@ function render() {
       <div>State Value: <b>{component.state.someState}</b></div>
       <div>
         <input type="text" ref="myInput" placeholder="Type something" />
-        <button onClick={e => onEvent(e)}>Change State Value</button>
+        <button onClick={onEvent}>Change State Value</button>
       </div>
     </div>
   );
