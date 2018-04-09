@@ -39,7 +39,7 @@ gulp.task('vendors', function () {
 // 'public/javascripts/application.js' as ES5.
 gulp.task('app', function () {
   const stream = browserify({
-      entries: ['./app/app.jsx'],
+      entries: ['./app/app.js'],
       debug: true,
       extensions: ['.jsx'],
       fullPaths: false
