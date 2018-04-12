@@ -1,10 +1,17 @@
 // This is an example of a classical React component (i.e., one that uses the
 // `class` keyword for encapsulation). I personally don't like this as much as
-// it is not a normal class (like in Java), it's a prototype; and it adds a
-// bunch of other jargon (like `super`, `constructor`, `extends`, etc.) along with
-// some wierd function definition syntax (like, is is defining a function, or
-// executing one? idk) which is really just unnecessary and introduces unnecessary
-// complexity.
+// plain, simple, function + object composition.
+//
+// Things I don't like about `class`:
+// - it is not a normal class (like in Java), it's a prototype
+// - it adds a bunch of extra jargon (like `super`, `constructor`, `extends`, etc.)
+// - it requires a lot of garbage code to bind `this` correctly
+// - it comes with some wierd function definition syntax (like, is it defining
+// a function, or executing one? idk)
+//
+// It all just seems really unnecessary and introduces added complexity. I
+// prefer expressing inention explicitly rather than through magical language
+// keywords, and I like
 //
 // Programming is hard enough already. Why make it harder (read: more complex) if
 // you don't need to?
@@ -16,16 +23,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+// Create a React component by extending the React.Component class.
 class ClassicalComponent extends React.Component {
+  static displayName = 'MyComponent'
+
+  static propTypes = {
+    message: PropTypes.string
+  }
+
+  static defaultProps = {
+    message: 'Default message'
+  }
+
   constructor(props) {
-    super(props)
+    super(props) // ...because, constructors! :P
 
     // Set initial state.
     this.state = {
       someState: 'Default state value.'
     }
 
-    // Bind the component's `this` to the following methods.
+    // Bind the component's context to the following methods. Redundant much?
     this.onEvent = () => this.onEvent()
     this.customFunc = () => this.customFunc()
   }
@@ -39,6 +57,7 @@ class ClassicalComponent extends React.Component {
         nextState.someState !== this.state.someState
   }
 
+  // Example event handler.
   onEvent(e) {
     e.preventDefault()
 
@@ -50,14 +69,17 @@ class ClassicalComponent extends React.Component {
     }
   }
 
+  // Example custom function.
   customFunc() {
     return 'This is custom!'
   }
 
+  // Main render method. So many thises.
   render() {
     return (
       <div>
         <div>Props Message: {this.props.message}</div>
+        <div><b>Custom Function Output</b>: {this.customFunc()}</div>
         <div>State Value: {this.state.someState}</div>
         <div>
           <input type="text" ref="myInput" placeholder="Type something" />
@@ -66,15 +88,6 @@ class ClassicalComponent extends React.Component {
       </div>
     )
   }
-}
-
-// Define static properties.
-ClassicalComponent.propTypes = {
-  message: PropTypes.string
-}
-
-ClassicalComponent.defaultProps = {
-  message: 'Default message'
 }
 
 export default ClassicalComponent

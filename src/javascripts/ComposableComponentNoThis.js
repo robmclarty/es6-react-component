@@ -9,75 +9,67 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-// Create a new object composed of the React Component prototype to be used
-// as the target of .props and .state and .setState
-const component = { ...React.Component.prototype }
+// Return a custom component, with properties defined above injected into it
+// whilst also defining statis properties on the function itself.
+const ComposableComponent = (props, context) => {
+  // Create a new object composed of the React Component prototype, to be used
+  // as the target of `props`, `state`, and `setState`.
+  const component = { ...React.Component.prototype }
 
-const displayName = 'MyComponent'
+  // Example static properties.
+  ComposableComponent.displayName = 'MyComponent'
 
-// Example static properties.
-const propTypes = {
-  message: PropTypes.string
-}
-
-const defaultProps = {
-  message: 'Default message'
-}
-
-const initialState = {
-  someState: 'Default state value.'
-}
-
-// Example lifecycle methods.
-function componentDidMount() {
-  console.log('Basic Component mounted.')
-}
-
-function shouldComponentUpdate(nextProps, nextState) {
-  return nextProps.message !== component.props.message ||
-      nextState.someState !== component.state.someState
-}
-
-// Example event handler.
-function onEvent(e) {
-  e.preventDefault()
-
-  const input = component.refs.myInput
-
-  if (input.value) {
-    component.setState({ someState: input.value })
-    input.value = ''
+  ComposableComponent.propTypes = {
+    message: PropTypes.string
   }
-}
 
-// Example custom function.
-function customFunc() {
-  return 'This is custom!'
-}
+  ComposableComponent.defaultProps = {
+    message: 'Default message'
+  }
 
-// Main redner method calls other methods directly (without "this").
-function render() {
-  return (
+  const initialState = {
+    someState: 'Default state value.'
+  }
+
+  // Example lifecycle methods.
+  const componentDidMount = () => console.log('Basic Component mounted.')
+
+  const shouldComponentUpdate = (nextProps, nextState) => {
+    return nextProps.message !== component.props.message ||
+        nextState.someState !== component.state.someState
+  }
+
+  // Example event handler.
+  const onEvent = e => {
+    e.preventDefault()
+
+    const input = component.refs.myInput
+
+    if (input.value) {
+      component.setState({ someState: input.value })
+      input.value = ''
+    }
+  }
+
+  // Example custom function.
+  const customFunc = () => 'This is custom!'
+
+  // Main redner method calls other methods directly (without "this").
+  const render = () => (
     <div>
-      <div>Props Message: <b>{component.props.message}</b></div>
-      <div>Custom Function Output: <b>{customFunc()}</b></div>
-      <div>State Value: <b>{component.state.someState}</b></div>
+      <div><b>Props Message</b>: {component.props.message}</div>
+      <div><b>Custom Function Output</b>: {customFunc()}</div>
+      <div><b>State Value</b>: {component.state.someState}</div>
       <div>
         <input type="text" ref="myInput" placeholder="Type something" />
         <button onClick={onEvent}>Change State Value</button>
       </div>
     </div>
   )
-}
 
-// Return a custom component, with properties defined above injected into it
-// whilst also defining statis properties on the function itself.
-function ComposableComponentNoThis(props, context) {
-  ComposableComponentNoThis.propTypes = propTypes
-  ComposableComponentNoThis.defaultProps = defaultProps
-
+  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
+  // this since it will create a new object with a new context).
   return Object.assign(component, {
-    displayName,
     props,
     context,
     state: initialState,
@@ -87,5 +79,5 @@ function ComposableComponentNoThis(props, context) {
   })
 }
 
-// Export ComposableComponentNoThis function as a React component.
-export default ComposableComponentNoThis
+// Export ComposableComponent function as a React component.
+export default ComposableComponent

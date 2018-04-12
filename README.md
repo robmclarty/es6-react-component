@@ -103,7 +103,7 @@ think that makes it a lot clearer what's being referenced, because you can see
 it right there in front of you (rather than hidden inside a mysteriously magical
 auto-binded `this`).
 
-The only thing that could possibly be considered "wierd" is the way that the
+The only thing that could possibly be considered "weird" is the way that the
 event handlers are called (but this problem exists for classical components as
 well). I've made use of the new
 [fat arrow function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
@@ -114,5 +114,6 @@ arrow was a simpler to look at.
 
 ## Further Reading
 
-- [https://gist.github.com/jquense/47bbd2613e0b03d7e51c](Alternative Ways to Define React Components)
+- [Alternative Ways to Define React Components](https://gist.github.com/jquense/47bbd2613e0b03d7e51c)
 - [Baby's First Reaction](https://medium.com/javascript-scene/baby-s-first-reaction-2103348eccdd)
+- [An easy guide to object rest/spread properties in JavaScript](https://dmitripavlutin.com/object-rest-spread-properties-javascript/)

@@ -20167,105 +20167,107 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Create a new object composed of the React Component prototype to be used
-// as the target of .props and .state and .setState
-var component = _extends({}, _react2.default.Component.prototype);
+// Return a custom component, with properties defined above injected into it
+// whilst also defining statis properties on the function itself.
+var ComposableComponent = function ComposableComponent(props, context) {
+  // Create a new object composed of the React Component prototype, to be used
+  // as the target of `props`, `state`, and `setState`.
+  var component = _extends({}, _react2.default.Component.prototype);
 
-var displayName = 'MyComponent';
+  // Example static properties.
+  ComposableComponent.displayName = 'MyComponent';
 
-// Example static properties.
-var propTypes = {
-  message: _propTypes2.default.string
-};
+  ComposableComponent.propTypes = {
+    message: _propTypes2.default.string
+  };
 
-var defaultProps = {
-  message: 'Default message'
-};
+  ComposableComponent.defaultProps = {
+    message: 'Default message'
+  };
 
-var initialState = {
-  someState: 'Default state value.'
+  var initialState = {
+    someState: 'Default state value.'
 
-  // Example lifecycle methods.
-};function componentDidMount() {
-  console.log('Basic Component mounted.');
-}
+    // Example lifecycle methods.
+  };var componentDidMount = function componentDidMount() {
+    return console.log('Basic Component mounted.');
+  };
 
-function shouldComponentUpdate(nextProps, nextState) {
-  return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
-}
+  var shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
+  };
 
-// Example event handler.
-function onEvent(e) {
-  e.preventDefault();
+  // Example event handler.
+  var onEvent = function onEvent(e) {
+    e.preventDefault();
 
-  var input = component.refs.myInput;
+    var input = component.refs.myInput;
 
-  if (input.value) {
-    component.setState({ someState: input.value });
-    input.value = '';
-  }
-}
+    if (input.value) {
+      component.setState({ someState: input.value });
+      input.value = '';
+    }
+  };
 
-// Example custom function.
-function customFunc() {
-  return 'This is custom!';
-}
+  // Example custom function.
+  var customFunc = function customFunc() {
+    return 'This is custom!';
+  };
 
-// Main redner method calls other methods directly (without "this").
-function render() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
+  // Main redner method calls other methods directly (without "this").
+  var render = function render() {
+    return _react2.default.createElement(
       'div',
       null,
-      'Props Message: ',
       _react2.default.createElement(
-        'b',
+        'div',
         null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'Props Message'
+        ),
+        ': ',
         component.props.message
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      null,
-      'Custom Function Output: ',
+      ),
       _react2.default.createElement(
-        'b',
+        'div',
         null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'Custom Function Output'
+        ),
+        ': ',
         customFunc()
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      null,
-      'State Value: ',
+      ),
       _react2.default.createElement(
-        'b',
+        'div',
         null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'State Value'
+        ),
+        ': ',
         component.state.someState
-      )
-    ),
-    _react2.default.createElement(
-      'div',
-      null,
-      _react2.default.createElement('input', { type: 'text', ref: 'myInput', placeholder: 'Type something' }),
+      ),
       _react2.default.createElement(
-        'button',
-        { onClick: onEvent },
-        'Change State Value'
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', ref: 'myInput', placeholder: 'Type something' }),
+        _react2.default.createElement(
+          'button',
+          { onClick: onEvent },
+          'Change State Value'
+        )
       )
-    )
-  );
-}
+    );
+  };
 
-// Implement React component attributes and methods.
-function ComposableComponentNoThis(props, context) {
-  ComposableComponentNoThis.propTypes = propTypes;
-  ComposableComponentNoThis.defaultProps = defaultProps;
-
+  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
+  // this since it will create a new object with a new context).
   return Object.assign(component, {
-    displayName: displayName,
     props: props,
     context: context,
     state: initialState,
@@ -20273,14 +20275,10 @@ function ComposableComponentNoThis(props, context) {
     shouldComponentUpdate: shouldComponentUpdate,
     render: render
   });
-}
+};
 
-// Assign static properties.
-// ComposableComponentNoThis.propTypes = propTypes
-// ComposableComponentNoThis.defaultProps = defaultProps
-
-// Export the result of BasicComponent function.
-exports.default = ComposableComponentNoThis;
+// Export ComposableComponent function as a React component.
+exports.default = ComposableComponent;
 
 },{"prop-types":9,"react":167}],169:[function(require,module,exports){
 'use strict';
