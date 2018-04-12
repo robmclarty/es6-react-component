@@ -1,9 +1,9 @@
 // This is an example of a classical React component (i.e., one that uses the
 // `class` keyword for encapsulation). I personally don't like this as much as
 // it is not a normal class (like in Java), it's a prototype; and it adds a
-// bunch of other jargon (like `super`, `constructor`, `extends`, etc.) along with 
-// some wierd function definition syntax (like, is is defining a function, or 
-// executing one? idk) which is really just unnecessary and introduces unnecessary 
+// bunch of other jargon (like `super`, `constructor`, `extends`, etc.) along with
+// some wierd function definition syntax (like, is is defining a function, or
+// executing one? idk) which is really just unnecessary and introduces unnecessary
 // complexity.
 //
 // Programming is hard enough already. Why make it harder (read: more complex) if
@@ -14,6 +14,7 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class ClassicalComponent extends React.Component {
   constructor(props) {
@@ -69,7 +70,7 @@ class ClassicalComponent extends React.Component {
 
 // Define static properties.
 ClassicalComponent.propTypes = {
-  message: React.PropTypes.string
+  message: PropTypes.string
 }
 
 ClassicalComponent.defaultProps = {

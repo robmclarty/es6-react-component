@@ -7,6 +7,7 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // Create a new object composed of the React Component prototype to be used
 // as the target of .props and .state and .setState
@@ -16,7 +17,7 @@ const displayName = 'MyComponent'
 
 // Example static properties.
 const propTypes = {
-  message: React.PropTypes.string
+  message: PropTypes.string
 }
 
 const defaultProps = {

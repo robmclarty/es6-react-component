@@ -1,6 +1,7 @@
 'use strict'
 
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 // Stateless functional components are, simply, a function that returns JSX.
 // It can be a simple view piece that just renders its props, or, as seen here,

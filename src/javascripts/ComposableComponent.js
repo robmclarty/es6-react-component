@@ -5,11 +5,12 @@
 'use strict'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const displayName = 'MyComponent'
 
 const propTypes = {
-  message: React.PropTypes.string
+  message: PropTypes.string
 }
 
 const defaultProps = {

@@ -1,3 +1,7 @@
+// WARNING: `React.createClass` has been deprecated as of version 15. This
+// example is being left here for reference, but will no longer work with the
+// updated version of React being employed now.
+
 // This is an example of composing a React component in the more traditional
 // way using the React.createClass() method.
 
