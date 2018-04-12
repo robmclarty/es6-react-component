@@ -21,9 +21,7 @@ import PropTypes from 'prop-types'
 // the required props first.
 import MyComponent from './ComposableComponentNoThis.js'
 
-console.log('MyComponent: ', MyComponent)
-
-const msg = "This is my component. There are many components like it, but this one is mine."
+const msg = "This is my component. There are many like it, but this one is mine."
 
 ReactDOM.render(
   <MyComponent message={msg} />,

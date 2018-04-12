@@ -117,3 +117,4 @@ arrow was a simpler to look at.
 - [Alternative Ways to Define React Components](https://gist.github.com/jquense/47bbd2613e0b03d7e51c)
 - [Baby's First Reaction](https://medium.com/javascript-scene/baby-s-first-reaction-2103348eccdd)
 - [An easy guide to object rest/spread properties in JavaScript](https://dmitripavlutin.com/object-rest-spread-properties-javascript/)
+- [Variables, Scopes, Environments, and Closures](http://speakingjs.com/es5/ch16.html)

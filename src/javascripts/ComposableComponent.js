@@ -44,6 +44,7 @@ function onEvent(e) {
 function render() {
   return (
     <div>
+      <h2>Composable Component</h2>
       <div>Props Message: {this.props.message}</div>
       <div>State Value: {this.state.someState}</div>
       <div>

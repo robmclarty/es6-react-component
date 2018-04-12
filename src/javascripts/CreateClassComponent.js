@@ -20,11 +20,9 @@ const CreateClassicalComponent = React.createClass({
     message: 'Default message'
   },
 
-  getInitialState: () => {
-    return {
-      someState: 'Default state value.'
-    }
-  },
+  getInitialState: () => ({
+    someState: 'Default state value.'
+  }),
 
   componentDidMount: () => {
     console.log('Basic Component mounted.')
@@ -52,6 +50,7 @@ const CreateClassicalComponent = React.createClass({
 
   render: () => (
     <div>
+      <h2>React.createClass Component</h2>
       <div>Props Message: {this.props.message}</div>
       <div>State Value: {this.state.someState}</div>
       <div>

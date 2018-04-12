@@ -9,14 +9,22 @@ import PropTypes from 'prop-types'
 // up to a higher-order component (e.g., for use with interactive elements like
 // forms and whatnot).
 //
-// NOTE: `someState` is actually a prop being passed into this component, but
-// its value is handled outside, in a higher-order component.
-const StatelessFunctionalComponent = ({
+// NOTE: `higherOrderState` is actually a prop being passed into this component,
+// but its value is handled outside, in a higher-order component.
+const StatelessComponent = ({
   message,
-  someState,
+  higherOrderState,
   customFunc,
   onChangeStateValue
 }) => {
+  StatelessComponent.displayName = 'StatelessComponent'
+  StatelessComponent.propTypes = {
+    message: PropTypes.string,
+    higherOrderState: PropTypes.string,
+    customFunc: PropTypes.func,
+    onChangeStateValue: PropTypes.func
+  }
+
   // Keep track of form input refs internally so values can be accessed from
   // other functions (like even handlers).
   let myInput
@@ -40,9 +48,10 @@ const StatelessFunctionalComponent = ({
   // can store its reference in a local variable for use in my event handler.
   return (
     <div>
+      <h2>Stateless Component</h2>
       <div>Props Message: <b>{message}</b></div>
       <div>Custom Function Output: <b>{}</b></div>
-      <div>State Value: <b>{someState}</b></div>
+      <div>State Value: <b>{higherOrderState}</b></div>
       <div>
         <input
             type="text"
@@ -55,11 +64,4 @@ const StatelessFunctionalComponent = ({
   )
 }
 
-StatelessFunctionalComponent.propTypes = {
-  message: PropTypes.string,
-  someState: PropTypes.string,
-  customFunc: PropTypes.func,
-  onChangeStateValue: PropTypes.func
-}
-
-export default StatelessFunctionalComponent
+export default StatelessComponent

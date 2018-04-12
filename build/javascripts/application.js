@@ -20220,6 +20220,17 @@ var ComposableComponent = function ComposableComponent(props, context) {
       'div',
       null,
       _react2.default.createElement(
+        'h2',
+        null,
+        'Composable Component (without ',
+        _react2.default.createElement(
+          'code',
+          null,
+          'this'
+        ),
+        ')'
+      ),
+      _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
