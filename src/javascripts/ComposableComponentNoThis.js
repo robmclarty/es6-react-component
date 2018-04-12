@@ -29,17 +29,17 @@ const initialState = {
 }
 
 // Example lifecycle methods.
-const componentDidMount = () => {
+function componentDidMount() {
   console.log('Basic Component mounted.')
 }
 
-const shouldComponentUpdate = (nextProps, nextState) => {
+function shouldComponentUpdate(nextProps, nextState) {
   return nextProps.message !== component.props.message ||
       nextState.someState !== component.state.someState
 }
 
 // Example event handler.
-const onEvent = e => {
+function onEvent(e) {
   e.preventDefault()
 
   const input = component.refs.myInput
@@ -51,12 +51,12 @@ const onEvent = e => {
 }
 
 // Example custom function.
-const customFunc = () => {
+function customFunc() {
   return 'This is custom!'
 }
 
 // Main redner method calls other methods directly (without "this").
-const render = () => {
+function render() {
   return (
     <div>
       <div>Props Message: <b>{component.props.message}</b></div>
@@ -70,21 +70,22 @@ const render = () => {
   )
 }
 
-// Implement React component attributes and methods.
-const ComposableComponent = (props, context) => ({
-  ...component,
-  displayName,
-  props,
-  context,
-  state: initialState,
-  componentDidMount,
-  shouldComponentUpdate,
-  render
-})
+// Return a custom component, with properties defined above injected into it
+// whilst also defining statis properties on the function itself.
+function ComposableComponentNoThis(props, context) {
+  ComposableComponentNoThis.propTypes = propTypes
+  ComposableComponentNoThis.defaultProps = defaultProps
 
-// Assign static properties.
-ComposableComponent.propTypes = propTypes
-ComposableComponent.defaultProps = defaultProps
+  return Object.assign(component, {
+    displayName,
+    props,
+    context,
+    state: initialState,
+    componentDidMount,
+    shouldComponentUpdate,
+    render
+  })
+}
 
-// Export the result of BasicComponent function.
-export default ComposableComponent
+// Export ComposableComponentNoThis function as a React component.
+export default ComposableComponentNoThis

@@ -29,7 +29,7 @@ const StatelessFunctionalComponent = ({
     e.preventDefault()
 
     // Pass value of myInput to higher-order function to be handled.
-    onChangeStateValue(myInput.value)
+    //onChangeStateValue(myInput.value)
 
     // Reset input after it has been submitted.
     myInput.value = ''
@@ -41,7 +41,7 @@ const StatelessFunctionalComponent = ({
   return (
     <div>
       <div>Props Message: <b>{message}</b></div>
-      <div>Custom Function Output: <b>{customFunc()}</b></div>
+      <div>Custom Function Output: <b>{}</b></div>
       <div>State Value: <b>{someState}</b></div>
       <div>
         <input
@@ -56,10 +56,10 @@ const StatelessFunctionalComponent = ({
 }
 
 StatelessFunctionalComponent.propTypes = {
-  message: PropTypes.string.isRequired,
-  someState: PropTypes.string.isRequired,
+  message: PropTypes.string,
+  someState: PropTypes.string,
   customFunc: PropTypes.func,
-  onEvent: PropTypes.func.isRequired
+  onChangeStateValue: PropTypes.func
 }
 
 export default StatelessFunctionalComponent

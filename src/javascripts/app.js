@@ -2,6 +2,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 
 // NOTE: Change the filename of the component module imported to `MyComponent`
 // to test different component styles.
@@ -19,6 +20,8 @@ import ReactDOM from 'react-dom'
 // container component. You can't include it here, directly, without defining
 // the required props first.
 import MyComponent from './ComposableComponentNoThis.js'
+
+console.log('MyComponent: ', MyComponent)
 
 const msg = "This is my component. There are many components like it, but this one is mine."
 

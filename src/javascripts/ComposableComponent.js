@@ -4,8 +4,8 @@
 
 'use strict'
 
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { PropTypes } from 'react'
+//import PropTypes from 'prop-types'
 
 const displayName = 'MyComponent'
 
@@ -21,16 +21,16 @@ const initialState = {
   someState: 'Default state value.'
 }
 
-const componentDidMount = () => {
+function componentDidMount() {
   console.log('Basic Component mounted.')
 }
 
-const shouldComponentUpdate = (nextProps, nextState) => {
+function shouldComponentUpdate(nextProps, nextState) {
   return nextProps.message !== this.props.message ||
       nextState.someState !== this.state.someState
 }
 
-const onEvent = e => {
+function onEvent(e) {
   e.preventDefault()
 
   const input = this.refs.myInput
@@ -41,27 +41,31 @@ const onEvent = e => {
   }
 }
 
-const render = () => (
-  <div>
-    <div>Props Message: {this.props.message}</div>
-    <div>State Value: {this.state.someState}</div>
+function render() {
+  return (
     <div>
-      <input type="text" ref="myInput" placeholder="Type something" />
-      <button onClick={e => this.onEvent(e)}>Change State Value</button>
+      <div>Props Message: {this.props.message}</div>
+      <div>State Value: {this.state.someState}</div>
+      <div>
+        <input type="text" ref="myInput" placeholder="Type something" />
+        <button onClick={e => this.onEvent(e)}>Change State Value</button>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
-const ComposableComponent = (props, context) => ({
-  ...React.Component.prototype,
-  displayName,
-  props,
-  context,
-  state: initialState,
-  componentDidMount,
-  onEvent,
-  render
-})
+function ComposableComponent(props, context) {
+  return {
+    ...React.Component.prototype,
+    displayName,
+    props,
+    context,
+    state: initialState,
+    componentDidMount,
+    onEvent,
+    render
+  }
+}
 
 ComposableComponent.propTypes = propTypes
 ComposableComponent.defaultProps = defaultProps

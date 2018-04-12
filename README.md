@@ -111,3 +111,8 @@ definition of ES6 to invoke the component's event handlers in order to pass the
 event object down to the handler (which itself is saved in the module's closure).
 It could also be written with a `.bind()` syntax, but I felt that the new fat
 arrow was a simpler to look at.
+
+## Further Reading
+
+- [https://gist.github.com/jquense/47bbd2613e0b03d7e51c](Alternative Ways to Define React Components)
+- [Baby's First Reaction](https://medium.com/javascript-scene/baby-s-first-reaction-2103348eccdd)
