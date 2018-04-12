@@ -47,11 +47,11 @@ const StatelessComponent = ({
   // NOTE: The form input `ref` is taking a function rather than a string so I
   // can store its reference in a local variable for use in my event handler.
   return (
-    <div>
-      <h3>Stateless Component</h3>
-      <div>Props Message: <b>{message}</b></div>
-      <div>Custom Function Output: <b>{customFunc()}</b></div>
-      <div>State Value: <b>{higherOrderState}</b></div>
+    <div className="sub-component">
+      <h2>Stateless Component</h2>
+      <div><b>Props Message</b>: {message}</div>
+      <div><b>Custom Function Output</b>: {customFunc()}</div>
+      <div><b>State Value</b>: {higherOrderState}</div>
       <div>
         <input
             type="text"

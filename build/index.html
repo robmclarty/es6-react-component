@@ -6,8 +6,7 @@
   <title>ES6 React Component Experiment</title>
   <style type="text/css">
     body {
-      padding-top: 150px;
-      width: 100%;
+      background-color: #7f7f7f;
     }
     div {
       margin-bottom: 10px;
@@ -15,11 +14,26 @@
     #app-container {
       margin-left: auto;
       margin-right: auto;
+    }
+    .component {
+      float: left;
       width: 300px;
+      padding: 15px;
+      margin: 15px;
+      background-color: #ccc;
+    }
+    .sub-component {
+      padding: 15px;
+      margin: 1px;
+      background-color: #fff;
+    }
+    input[type="text"] {
+      margin-right: 5px;
     }
   </style>
 </head>
 <body>
+  <h1>Alternative React Components in ES6</h1>
   <div id="app-container"></div>
   <script src="javascripts/application.js"></script>
 </body>

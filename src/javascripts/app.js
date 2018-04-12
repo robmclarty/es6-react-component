@@ -19,11 +19,21 @@ import PropTypes from 'prop-types'
 // and has dependencies (e.g., event handler prop) which is provided by the
 // container component. You can't include it here, directly, without defining
 // the required props first.
-import MyComponent from './ContainerComponent.js'
+import ClassicalComponent from './ClassicalComponent.js'
+import ComposableComponent from './ComposableComponent.js'
+import ComposableComponentNoThis from './ComposableComponentNoThis.js'
+import ComposableComponentNoThisAlt from './ComposableComponentNoThisAlt.js'
+import ContainerComponent from './ContainerComponent.js'
 
 const msg = "This is my component. There are many like it, but this one is mine."
 
 ReactDOM.render(
-  <MyComponent message={msg} />,
+  <div>
+    <ContainerComponent message={msg} />
+    <ComposableComponent message={msg} />
+    <ComposableComponentNoThis message={msg} />
+    <ComposableComponentNoThisAlt message={msg} />
+    <ClassicalComponent message={msg} />
+  </div>,
   document.getElementById('app-container')
 )

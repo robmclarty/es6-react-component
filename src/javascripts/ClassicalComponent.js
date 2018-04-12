@@ -25,16 +25,6 @@ import PropTypes from 'prop-types'
 
 // Create a React component by extending the React.Component class.
 class ClassicalComponent extends React.Component {
-  static displayName = 'MyComponent'
-
-  static propTypes = {
-    message: PropTypes.string
-  }
-
-  static defaultProps = {
-    message: 'Default message'
-  }
-
   constructor(props) {
     super(props) // ...because, constructors! :P
 
@@ -44,8 +34,8 @@ class ClassicalComponent extends React.Component {
     }
 
     // Bind the component's context to the following methods. Redundant much?
-    this.onEvent = () => this.onEvent()
-    this.customFunc = () => this.customFunc()
+    this.onEvent = this.onEvent.bind(this)
+    this.customFunc = this.customFunc.bind(this)
   }
 
   componentDidMount() {
@@ -77,11 +67,11 @@ class ClassicalComponent extends React.Component {
   // Main render method. So many thises.
   render() {
     return (
-      <div>
+      <div className="component">
         <h2>Classical Component</h2>
-        <div>Props Message: {this.props.message}</div>
+        <div><b>Props Message</b>: {this.props.message}</div>
         <div><b>Custom Function Output</b>: {this.customFunc()}</div>
-        <div>State Value: {this.state.someState}</div>
+        <div><b>State Value</b>: {this.state.someState}</div>
         <div>
           <input type="text" ref="myInput" placeholder="Type something" />
           <button onClick={this.onEvent}>Change State Value</button>
@@ -89,6 +79,16 @@ class ClassicalComponent extends React.Component {
       </div>
     )
   }
+}
+
+ClassicalComponent.displayName = 'MyComponent'
+
+ClassicalComponent.propTypes = {
+  message: PropTypes.string
+}
+
+ClassicalComponent.defaultProps = {
+  message: 'Default message'
 }
 
 export default ClassicalComponent

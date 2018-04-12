@@ -4,8 +4,8 @@
 
 'use strict'
 
-import React, { PropTypes } from 'react'
-//import PropTypes from 'prop-types'
+import React from 'react'
+import PropTypes from 'prop-types'
 
 const displayName = 'MyComponent'
 
@@ -41,12 +41,16 @@ function onEvent(e) {
   }
 }
 
+// Example custom function.
+const customFunc = () => 'This is custom!'
+
 function render() {
   return (
-    <div>
+    <div className="component">
       <h2>Composable Component</h2>
-      <div>Props Message: {this.props.message}</div>
-      <div>State Value: {this.state.someState}</div>
+      <div><b>Props Message</b>: {this.props.message}</div>
+      <div><b>Custom Function Output</b>: {customFunc()}</div>
+      <div><b>State Value</b>: {this.state.someState}</div>
       <div>
         <input type="text" ref="myInput" placeholder="Type something" />
         <button onClick={e => this.onEvent(e)}>Change State Value</button>

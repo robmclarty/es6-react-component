@@ -41,7 +41,7 @@ const ContainerComponent = (props, context) => {
   const customFunc = () => 'This is custom!'
 
   const render = () => (
-    <div>
+    <div className="component">
       <h2>Higher-Order/Container</h2>
       <p>
         A higher-order container component rendering a a lower-level

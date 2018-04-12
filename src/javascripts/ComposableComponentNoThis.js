@@ -56,7 +56,7 @@ const ComposableComponent = (props, context) => {
 
   // Main redner method calls other methods directly (without "this").
   const render = () => (
-    <div>
+    <div className="component">
       <h2>Composable Component (without <code>this</code>)</h2>
       <div><b>Props Message</b>: {component.props.message}</div>
       <div><b>Custom Function Output</b>: {customFunc()}</div>
