@@ -20143,11 +20143,8 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 },{"./lib/React":35}],168:[function(require,module,exports){
-// This is a variation of ComposableComponent which aims to get rid of `this`
-// and instead refer to `component` (which is a React.Component) explicitly so
-// it is absolutely clear just where things like .props, .state, and .setState()
-// are coming from. This, so far, is my preferred method of React component
-// composition.
+// This is a higher-order container component, using the style of the
+// ComposableComponentNoThis example.
 
 'use strict';
 
@@ -20165,56 +20162,48 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _StatelessComponent = require('./StatelessComponent');
+
+var _StatelessComponent2 = _interopRequireDefault(_StatelessComponent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Return a custom component, with properties defined above injected into it
-// whilst also defining statis properties on the function itself.
-var ComposableComponent = function ComposableComponent(props, context) {
-  // Create a new object composed of the React Component prototype, to be used
-  // as the target of `props`, `state`, and `setState`.
-  var component = _extends({}, _react2.default.Component.prototype);
+var ContainerComponent = function ContainerComponent(props, context) {
+  ContainerComponent.displayName = 'Container';
 
-  // Example static properties.
-  ComposableComponent.displayName = 'MyComponent';
-
-  ComposableComponent.propTypes = {
+  ContainerComponent.propTypes = {
     message: _propTypes2.default.string
   };
 
-  ComposableComponent.defaultProps = {
+  ContainerComponent.defaultProps = {
     message: 'Default message'
   };
 
   var initialState = {
     someState: 'Default state value.'
+  };
 
-    // Example lifecycle methods.
-  };var componentDidMount = function componentDidMount() {
-    return console.log('Basic Component mounted.');
+  var component = _extends({}, _react2.default.Component.prototype);
+
+  var componentDidMount = function componentDidMount() {
+    return console.log('Container Component mounted.');
   };
 
   var shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
     return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
   };
 
-  // Example event handler.
-  var onEvent = function onEvent(e) {
-    e.preventDefault();
-
-    var input = component.refs.myInput;
-
-    if (input.value) {
-      component.setState({ someState: input.value });
-      input.value = '';
-    }
+  // Takes a value as input and uses it to change `someState`. This function is
+  // passed into the lower-level stateless functional component so it can be
+  // executed with access to variables from that context.
+  var onChangeStateValue = function onChangeStateValue(inputValue) {
+    component.setState({ someState: inputValue });
   };
 
-  // Example custom function.
   var customFunc = function customFunc() {
     return 'This is custom!';
   };
 
-  // Main redner method calls other methods directly (without "this").
   var render = function render() {
     return _react2.default.createElement(
       'div',
@@ -20222,62 +20211,22 @@ var ComposableComponent = function ComposableComponent(props, context) {
       _react2.default.createElement(
         'h2',
         null,
-        'Composable Component (without ',
-        _react2.default.createElement(
-          'code',
-          null,
-          'this'
-        ),
-        ')'
+        'Higher-Order/Container'
       ),
       _react2.default.createElement(
-        'div',
+        'p',
         null,
-        _react2.default.createElement(
-          'b',
-          null,
-          'Props Message'
-        ),
-        ': ',
-        component.props.message
+        'A higher-order container component rendering a a lower-level stateless component.'
       ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'b',
-          null,
-          'Custom Function Output'
-        ),
-        ': ',
-        customFunc()
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'b',
-          null,
-          'State Value'
-        ),
-        ': ',
-        component.state.someState
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement('input', { type: 'text', ref: 'myInput', placeholder: 'Type something' }),
-        _react2.default.createElement(
-          'button',
-          { onClick: onEvent },
-          'Change State Value'
-        )
-      )
+      _react2.default.createElement(_StatelessComponent2.default, {
+        message: component.props.message,
+        higherOrderState: component.state.someState,
+        customFunc: customFunc,
+        onChangeStateValue: onChangeStateValue
+      })
     );
   };
 
-  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
-  // this since it will create a new object with a new context).
   return Object.assign(component, {
     props: props,
     context: context,
@@ -20288,10 +20237,128 @@ var ComposableComponent = function ComposableComponent(props, context) {
   });
 };
 
-// Export ComposableComponent function as a React component.
-exports.default = ComposableComponent;
+exports.default = ContainerComponent;
 
-},{"prop-types":9,"react":167}],169:[function(require,module,exports){
+},{"./StatelessComponent":169,"prop-types":9,"react":167}],169:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Stateless functional components are, simply, a function that returns JSX.
+// It can be a simple view piece that just renders its props, or, as seen here,
+// it can be a bit more complex by taking in functions and passing values back
+// up to a higher-order component (e.g., for use with interactive elements like
+// forms and whatnot).
+//
+// NOTE: `higherOrderState` is actually a prop being passed into this component,
+// but its value is handled outside, in a higher-order component.
+var StatelessComponent = function StatelessComponent(_ref) {
+  var message = _ref.message,
+      higherOrderState = _ref.higherOrderState,
+      customFunc = _ref.customFunc,
+      onChangeStateValue = _ref.onChangeStateValue;
+
+  // Keep track of form input refs internally so values can be accessed from
+  // other functions (like even handlers).
+  var myInput = void 0;
+
+  // Handle form submission by passing the value of inputs to a higher-order
+  // component which has a reference to some app state.
+  var onSubmit = function onSubmit(e) {
+    // It's important to disable the default action or the form will try to
+    // make an HTTP request.
+    e.preventDefault();
+
+    // Pass value of myInput to higher-order function to be handled.
+    onChangeStateValue(myInput.value);
+
+    // Reset input after it has been submitted.
+    myInput.value = '';
+  };
+
+  // Stateless components only have one output: JSX.
+  // NOTE: The form input `ref` is taking a function rather than a string so I
+  // can store its reference in a local variable for use in my event handler.
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'h3',
+      null,
+      'Stateless Component'
+    ),
+    _react2.default.createElement(
+      'div',
+      null,
+      'Props Message: ',
+      _react2.default.createElement(
+        'b',
+        null,
+        message
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      null,
+      'Custom Function Output: ',
+      _react2.default.createElement(
+        'b',
+        null,
+        customFunc()
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      null,
+      'State Value: ',
+      _react2.default.createElement(
+        'b',
+        null,
+        higherOrderState
+      )
+    ),
+    _react2.default.createElement(
+      'div',
+      null,
+      _react2.default.createElement('input', {
+        type: 'text',
+        ref: function ref(name) {
+          return myInput = name;
+        },
+        placeholder: 'Type something'
+      }),
+      _react2.default.createElement(
+        'button',
+        { onClick: onSubmit },
+        'Change Props Value'
+      )
+    )
+  );
+};
+
+StatelessComponent.displayName = 'StatelessComponent';
+StatelessComponent.propTypes = {
+  message: _propTypes2.default.string,
+  higherOrderState: _propTypes2.default.string,
+  customFunc: _propTypes2.default.func,
+  onChangeStateValue: _propTypes2.default.func
+};
+
+exports.default = StatelessComponent;
+
+},{"prop-types":9,"react":167}],170:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -20306,13 +20373,13 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ComposableComponentNoThis = require('./ComposableComponentNoThis.js');
+var _ContainerComponent = require('./ContainerComponent.js');
 
-var _ComposableComponentNoThis2 = _interopRequireDefault(_ComposableComponentNoThis);
+var _ContainerComponent2 = _interopRequireDefault(_ContainerComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log('MyComponent: ', _ComposableComponentNoThis2.default);
+var msg = "This is my component. There are many like it, but this one is mine.";
 
 // NOTE: Change the filename of the component module imported to `MyComponent`
 // to test different component styles.
@@ -20331,10 +20398,8 @@ console.log('MyComponent: ', _ComposableComponentNoThis2.default);
 // the required props first.
 
 
-var msg = "This is my component. There are many components like it, but this one is mine.";
+_reactDom2.default.render(_react2.default.createElement(_ContainerComponent2.default, { message: msg }), document.getElementById('app-container'));
 
-_reactDom2.default.render(_react2.default.createElement(_ComposableComponentNoThis2.default, { message: msg }), document.getElementById('app-container'));
-
-},{"./ComposableComponentNoThis.js":168,"prop-types":9,"react":167,"react-dom":11}]},{},[169])
+},{"./ContainerComponent.js":168,"prop-types":9,"react":167,"react-dom":11}]},{},[170])
 
 //# sourceMappingURL=application.js.map

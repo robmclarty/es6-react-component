@@ -37,7 +37,7 @@ const StatelessComponent = ({
     e.preventDefault()
 
     // Pass value of myInput to higher-order function to be handled.
-    //onChangeStateValue(myInput.value)
+    onChangeStateValue(myInput.value)
 
     // Reset input after it has been submitted.
     myInput.value = ''
@@ -48,9 +48,9 @@ const StatelessComponent = ({
   // can store its reference in a local variable for use in my event handler.
   return (
     <div>
-      <h2>Stateless Component</h2>
+      <h3>Stateless Component</h3>
       <div>Props Message: <b>{message}</b></div>
-      <div>Custom Function Output: <b>{}</b></div>
+      <div>Custom Function Output: <b>{customFunc()}</b></div>
       <div>State Value: <b>{higherOrderState}</b></div>
       <div>
         <input

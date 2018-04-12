@@ -19,7 +19,7 @@ import PropTypes from 'prop-types'
 // and has dependencies (e.g., event handler prop) which is provided by the
 // container component. You can't include it here, directly, without defining
 // the required props first.
-import MyComponent from './ComposableComponentNoThis.js'
+import MyComponent from './ContainerComponent.js'
 
 const msg = "This is my component. There are many like it, but this one is mine."
 

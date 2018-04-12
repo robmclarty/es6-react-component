@@ -5,15 +5,13 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import StatelessFunctionalComponent from './StatelessComponent'
+import StatelessComponent from './StatelessComponent'
 
 const ContainerComponent = (props, context) => {
-  const component = { ...React.Component.prototype }
-
   ContainerComponent.displayName = 'Container'
 
   ContainerComponent.propTypes = {
-    message: React.PropTypes.string
+    message: PropTypes.string
   }
 
   ContainerComponent.defaultProps = {
@@ -24,9 +22,9 @@ const ContainerComponent = (props, context) => {
     someState: 'Default state value.'
   }
 
-  const componentDidMount = () => {
-    console.log('Container Component mounted.')
-  }
+  const component = { ...React.Component.prototype }
+
+  const componentDidMount = () => console.log('Container Component mounted.')
 
   const shouldComponentUpdate = (nextProps, nextState) => {
     return nextProps.message !== component.props.message ||
@@ -40,21 +38,19 @@ const ContainerComponent = (props, context) => {
     component.setState({ someState: inputValue })
   }
 
-  const customFunc = () => {
-    return 'This is custom!'
-  }
+  const customFunc = () => 'This is custom!'
 
   const render = () => (
     <div>
-      <h2>Higher-Order/Container Component</h2>
+      <h2>Higher-Order/Container</h2>
       <p>
         A higher-order container component rendering a a lower-level
         stateless component.
       </p>
 
       <StatelessComponent
-          message={message}
-          someState={someState}
+          message={component.props.message}
+          higherOrderState={component.state.someState}
           customFunc={customFunc}
           onChangeStateValue={onChangeStateValue}
       />
