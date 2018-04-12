@@ -15,26 +15,11 @@
   "author": "Rob McLarty",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "6.26.0",
-    "babel-core": "6.26.0",
-    "babel-plugin-transform-object-assign": "6.22.0",
-    "babel-preset-env": "1.6.1",
-    "babel-preset-react": "6.24.1",
-    "babelify": "8.0.0",
-    "browserify": "16.1.1",
-    "gulp": "3.9.1",
-    "gulp-concat": "2.6.1",
-    "gulp-rename": "1.2.2",
-    "gulp-replace": "0.6.1",
-    "gulp-sourcemaps": "2.6.4",
-    "gulp-uglify": "^1.4.2",
-    "gulp-watch": "^4.3.5",
-    "gulp-webserver": "^0.9.1",
     "prop-types": "15.6.1",
     "react": "16.3.1",
-    "react-dom": "16.3.1",
-    "soko": "0.2.4",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "react-dom": "16.3.1"
+  },
+  "devDependencies": {
+    "soko": "0.2.4"
   }
 }
