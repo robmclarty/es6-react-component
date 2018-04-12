@@ -1,5 +1,7 @@
 # ES6 React Component Patterns
 
+![Screenshot](screenshot.png)
+
 This is my attempt at defining various patterns for building React components using
 [ES6 syntax](https://people.mozilla.org/~jorendorff/es6-draft.html)
 and
