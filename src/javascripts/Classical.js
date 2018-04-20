@@ -33,6 +33,9 @@ class ClassicalComponent extends React.Component {
       someState: 'Default state value.'
     }
 
+    // Create refs
+    this.myInputRef = React.createRef()
+
     // Bind the component's context to the following methods. Redundant much?
     this.onEvent = this.onEvent.bind(this)
     this.customFunc = this.customFunc.bind(this)
@@ -51,7 +54,7 @@ class ClassicalComponent extends React.Component {
   onEvent(e) {
     e.preventDefault()
 
-    const input = this.refs.myInput
+    const input = this.refs.myInput.current
 
     if (input.value) {
       this.setState({ someState: input.value })
@@ -73,7 +76,7 @@ class ClassicalComponent extends React.Component {
         <div><b>Custom Function Output</b>: {this.customFunc()}</div>
         <div><b>State Value</b>: {this.state.someState}</div>
         <div>
-          <input type="text" ref="myInput" placeholder="Type something" />
+          <input type="text" ref={this.myInputRef} placeholder="Type something" />
           <button onClick={this.onEvent}>Change State Value</button>
         </div>
       </div>

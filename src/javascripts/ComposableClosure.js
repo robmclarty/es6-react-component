@@ -26,6 +26,10 @@ const initialState = {
   someState: 'Default state value.'
 }
 
+const refs = {
+  myInputRef: React.createRef()
+}
+
 // Example lifecycle methods.
 const componentDidMount = () => console.log('Basic Component mounted.')
 
@@ -38,7 +42,7 @@ const shouldComponentUpdate = (nextProps, nextState) => {
 const onEvent = e => {
   e.preventDefault()
 
-  const input = component.refs.myInput
+  const input = component.refs.myInput.current
 
   if (input.value) {
     component.setState({ someState: input.value })
@@ -57,7 +61,7 @@ const render = () => (
     <div><b>Custom Function Output</b>: {customFunc()}</div>
     <div><b>State Value</b>: {component.state.someState}</div>
     <div>
-      <input type="text" ref="myInput" placeholder="Type something" />
+      <input type="text" ref={component.myInputRef} placeholder="Type something" />
       <button onClick={onEvent}>Change State Value</button>
     </div>
   </div>
@@ -76,6 +80,7 @@ const ComposableComponent = (props, context) => {
     props,
     context,
     state: initialState,
+    ...refs,
     componentDidMount,
     shouldComponentUpdate,
     render

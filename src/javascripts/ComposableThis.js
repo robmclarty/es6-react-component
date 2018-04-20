@@ -21,6 +21,10 @@ const initialState = {
   someState: 'Default state value.'
 }
 
+const refs = {
+  myInputRef: React.createRef()
+}
+
 function componentDidMount() {
   console.log('Basic Component mounted.')
 }
@@ -33,7 +37,7 @@ function shouldComponentUpdate(nextProps, nextState) {
 function onEvent(e) {
   e.preventDefault()
 
-  const input = this.refs.myInput
+  const input = this.refs.myInput.current
 
   if (input.value) {
     this.setState({ someState: input.value })
@@ -52,7 +56,7 @@ function render() {
       <div><b>Custom Function Output</b>: {customFunc()}</div>
       <div><b>State Value</b>: {this.state.someState}</div>
       <div>
-        <input type="text" ref="myInput" placeholder="Type something" />
+        <input type="text" ref={this.myInputRef} placeholder="Type something" />
         <button onClick={e => this.onEvent(e)}>Change State Value</button>
       </div>
     </div>
@@ -65,6 +69,7 @@ function ComposableComponent(props, context) {
     displayName,
     props,
     context,
+    ...refs,
     state: initialState,
     componentDidMount,
     onEvent,

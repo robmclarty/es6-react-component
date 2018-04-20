@@ -1,5 +1,7 @@
 # ES6+ React Component Patterns
 
+Updated for [React 16.3.2](https://github.com/facebook/react/blob/master/CHANGELOG.md#1632-april-16-2018)
+
 ![Screenshot](screenshot.png)
 
 This is a set of different patterns for creating React components.

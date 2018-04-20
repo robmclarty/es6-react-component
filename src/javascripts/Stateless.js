@@ -55,7 +55,7 @@ const StatelessComponent = ({
       <div>
         <input
             type="text"
-            ref={ name => myInput = name }
+            ref={name => myInput = name}
             placeholder="Type something"
         />
         <button onClick={onSubmit}>Change Props Value</button>

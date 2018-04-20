@@ -62,7 +62,7 @@ const ComposableComponent = (props, context) => {
       <div><b>Custom Function Output</b>: {customFunc()}</div>
       <div><b>State Value</b>: {component.state.someState}</div>
       <div>
-        <input type="text" ref="myInput" placeholder="Type something" />
+        <input type="text" ref={component.myInputRef} placeholder="Type something" />
         <button onClick={onEvent}>Change State Value</button>
       </div>
     </div>
@@ -74,6 +74,7 @@ const ComposableComponent = (props, context) => {
     props,
     context,
     state: initialState,
+    myInputRef: React.createRef(),
     componentDidMount,
     shouldComponentUpdate,
     render
