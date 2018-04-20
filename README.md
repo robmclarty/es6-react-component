@@ -1,4 +1,4 @@
-# ES6 React Component Patterns
+# ES6+ React Component Patterns
 
 ![Screenshot](screenshot.png)
 
