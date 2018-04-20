@@ -68,7 +68,7 @@ class ClassicalComponent extends React.Component {
   render() {
     return (
       <div className="component">
-        <h2>Classical Component</h2>
+        <h2>Classical</h2>
         <div><b>Props Message</b>: {this.props.message}</div>
         <div><b>Custom Function Output</b>: {this.customFunc()}</div>
         <div><b>State Value</b>: {this.state.someState}</div>

@@ -47,7 +47,7 @@ const customFunc = () => 'This is custom!'
 function render() {
   return (
     <div className="component">
-      <h2>Composable Component</h2>
+      <h2><code>this</code> is Composable</h2>
       <div><b>Props Message</b>: {this.props.message}</div>
       <div><b>Custom Function Output</b>: {customFunc()}</div>
       <div><b>State Value</b>: {this.state.someState}</div>

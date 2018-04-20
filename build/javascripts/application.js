@@ -20012,7 +20012,7 @@ var ClassicalComponent = function (_React$Component) {
         _react2.default.createElement(
           'h2',
           null,
-          'Classical Component'
+          'Classical'
         ),
         _react2.default.createElement(
           'div',
@@ -20077,9 +20077,9 @@ ClassicalComponent.defaultProps = {
 exports.default = ClassicalComponent;
 
 },{"prop-types":20,"react":27}],29:[function(require,module,exports){
-// This ComposableComponent uses Object.assign to compose a React component
-// from the React.Component.prototype and a mix of custom functions, some of
-// which will override the defaults of the prototype (e.g., render()).
+// The way you compose your function is flexible. For example, you don't have
+// to nest everything into the main function and could instead put everything
+// on the same level within the module's scope.
 
 'use strict';
 
@@ -20099,6 +20099,11 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// Create a new object composed of the React Component prototype, to be used
+// as the target of `props`, `state`, and `setState`.
+var component = _extends({}, _react2.default.Component.prototype);
+
+// Example static properties.
 var displayName = 'MyComponent';
 
 var propTypes = {
@@ -20111,42 +20116,42 @@ var defaultProps = {
 
 var initialState = {
   someState: 'Default state value.'
+
+  // Example lifecycle methods.
+};var componentDidMount = function componentDidMount() {
+  return console.log('Basic Component mounted.');
 };
 
-function componentDidMount() {
-  console.log('Basic Component mounted.');
-}
+var shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+  return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
+};
 
-function shouldComponentUpdate(nextProps, nextState) {
-  return nextProps.message !== this.props.message || nextState.someState !== this.state.someState;
-}
-
-function onEvent(e) {
+// Example event handler.
+var onEvent = function onEvent(e) {
   e.preventDefault();
 
-  var input = this.refs.myInput;
+  var input = component.refs.myInput;
 
   if (input.value) {
-    this.setState({ someState: input.value });
+    component.setState({ someState: input.value });
     input.value = '';
   }
-}
+};
 
 // Example custom function.
 var customFunc = function customFunc() {
   return 'This is custom!';
 };
 
-function render() {
-  var _this = this;
-
+// Main redner method calls other methods directly (without "this").
+var render = function render() {
   return _react2.default.createElement(
     'div',
     { className: 'component' },
     _react2.default.createElement(
       'h2',
       null,
-      'Composable Component'
+      'Modular Closure'
     ),
     _react2.default.createElement(
       'div',
@@ -20157,7 +20162,7 @@ function render() {
         'Props Message'
       ),
       ': ',
-      this.props.message
+      component.props.message
     ),
     _react2.default.createElement(
       'div',
@@ -20179,7 +20184,7 @@ function render() {
         'State Value'
       ),
       ': ',
-      this.state.someState
+      component.state.someState
     ),
     _react2.default.createElement(
       'div',
@@ -20187,33 +20192,194 @@ function render() {
       _react2.default.createElement('input', { type: 'text', ref: 'myInput', placeholder: 'Type something' }),
       _react2.default.createElement(
         'button',
-        { onClick: function onClick(e) {
-            return _this.onEvent(e);
-          } },
+        { onClick: onEvent },
         'Change State Value'
       )
     )
   );
-}
+};
 
-function ComposableComponent(props, context) {
-  return _extends({}, _react2.default.Component.prototype, {
-    displayName: displayName,
+// Return a custom component, with properties defined above injected into it
+// whilst also defining statis properties on the function itself.
+var ComposableComponent = function ComposableComponent(props, context) {
+  ComposableComponent.displayName = displayName;
+  ComposableComponent.propTypes = propTypes;
+  ComposableComponent.defaultProps = defaultProps;
+
+  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
+  // this since it will create a new object with a new context).
+  return Object.assign(component, {
     props: props,
     context: context,
     state: initialState,
     componentDidMount: componentDidMount,
-    onEvent: onEvent,
+    shouldComponentUpdate: shouldComponentUpdate,
     render: render
   });
-}
+};
 
-ComposableComponent.propTypes = propTypes;
-ComposableComponent.defaultProps = defaultProps;
-
+// Export ComposableComponent function as a React component.
 exports.default = ComposableComponent;
 
 },{"prop-types":20,"react":27}],30:[function(require,module,exports){
+// This is an example of a React component composed of purer functions which
+// take in the `component` as an injected dependency/parameter, thus making each
+// function a standalone bit of functionality that can more easily be tested.
+
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _react = require('react');
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Example static properties.
+var displayName = 'MyComponent';
+
+var propTypes = {
+  message: _propTypes2.default.string
+};
+
+var defaultProps = {
+  message: 'Default message'
+};
+
+var initialState = {
+  someState: 'Default state value.'
+};
+
+var refs = {
+  myInputRef: _react2.default.createRef()
+
+  // Example lifecycle methods.
+};var componentDidMount = function componentDidMount(component) {
+  return function () {
+    return 'Basic Component mounted.';
+  };
+};
+
+var shouldComponentUpdate = function shouldComponentUpdate(component) {
+  return function (nextProps, nextState) {
+    return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
+  };
+};
+
+// Example event handler.
+var onEvent = function onEvent(component) {
+  return function (e) {
+    e.preventDefault();
+
+    var input = component.myInputRef.current;
+
+    if (input.value) {
+      component.setState({ someState: input.value });
+      input.value = '';
+    }
+  };
+};
+
+// Example custom function.
+var customFunc = function customFunc() {
+  return 'This is custom!';
+};
+
+// Main redner method calls other methods directly (without "this").
+var render = function render(component) {
+  return function () {
+    return _react2.default.createElement(
+      'div',
+      { className: 'component' },
+      _react2.default.createElement(
+        'h2',
+        null,
+        'Dependency Injection'
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'Props Message'
+        ),
+        ': ',
+        component.props.message
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'Custom Function Output'
+        ),
+        ': ',
+        customFunc()
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'b',
+          null,
+          'State Value'
+        ),
+        ': ',
+        component.state.someState
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('input', { type: 'text', ref: component.myInputRef, placeholder: 'Type something' }),
+        _react2.default.createElement(
+          'button',
+          { onClick: onEvent(component) },
+          'Change State Value'
+        )
+      )
+    );
+  };
+};
+
+// Return a custom component, with properties defined above injected into it
+// whilst also defining statis properties on the function itself.
+var PureComponent = function PureComponent(props, context) {
+  // Create a new object composed of the React Component prototype, to be used
+  // as the target of `props`, `state`, and `setState`.
+  var component = _extends({}, _react2.default.Component.prototype);
+
+  PureComponent.displayName = displayName;
+  PureComponent.propTypes = propTypes;
+  PureComponent.defaultProps = defaultProps;
+
+  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
+  // this since it will create a new object with a new context).
+  return Object.assign(component, _extends({
+    props: props,
+    context: context,
+    state: initialState
+  }, refs, {
+    componentDidMount: componentDidMount(component),
+    shouldComponentUpdate: shouldComponentUpdate(component),
+    render: render(component)
+  }));
+};
+
+// Export PureComponent function as a React component.
+exports.default = PureComponent;
+
+},{"prop-types":20,"react":27}],31:[function(require,module,exports){
 // This is a variation of ComposableComponent which aims to get rid of `this`
 // and instead refer to `component` (which is a React.Component) explicitly so
 // it is absolutely clear just where things like .props, .state, and .setState()
@@ -20293,13 +20459,7 @@ var ComposableComponent = function ComposableComponent(props, context) {
       _react2.default.createElement(
         'h2',
         null,
-        'Composable Component (without ',
-        _react2.default.createElement(
-          'code',
-          null,
-          'this'
-        ),
-        ')'
+        'Nested Function'
       ),
       _react2.default.createElement(
         'div',
@@ -20362,10 +20522,10 @@ var ComposableComponent = function ComposableComponent(props, context) {
 // Export ComposableComponent function as a React component.
 exports.default = ComposableComponent;
 
-},{"prop-types":20,"react":27}],31:[function(require,module,exports){
-// The way you compose your function is flexible. For example, you don't have
-// to nest everything into the main function and could instead put everything
-// on the same level within the module's scope.
+},{"prop-types":20,"react":27}],32:[function(require,module,exports){
+// This ComposableComponent uses Object.assign to compose a React component
+// from the React.Component.prototype and a mix of custom functions, some of
+// which will override the defaults of the prototype (e.g., render()).
 
 'use strict';
 
@@ -20385,11 +20545,6 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Create a new object composed of the React Component prototype, to be used
-// as the target of `props`, `state`, and `setState`.
-var component = _extends({}, _react2.default.Component.prototype);
-
-// Example static properties.
 var displayName = 'MyComponent';
 
 var propTypes = {
@@ -20402,48 +20557,47 @@ var defaultProps = {
 
 var initialState = {
   someState: 'Default state value.'
-
-  // Example lifecycle methods.
-};var componentDidMount = function componentDidMount() {
-  return console.log('Basic Component mounted.');
 };
 
-var shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
-  return nextProps.message !== component.props.message || nextState.someState !== component.state.someState;
-};
+function componentDidMount() {
+  console.log('Basic Component mounted.');
+}
 
-// Example event handler.
-var onEvent = function onEvent(e) {
+function shouldComponentUpdate(nextProps, nextState) {
+  return nextProps.message !== this.props.message || nextState.someState !== this.state.someState;
+}
+
+function onEvent(e) {
   e.preventDefault();
 
-  var input = component.refs.myInput;
+  var input = this.refs.myInput;
 
   if (input.value) {
-    component.setState({ someState: input.value });
+    this.setState({ someState: input.value });
     input.value = '';
   }
-};
+}
 
 // Example custom function.
 var customFunc = function customFunc() {
   return 'This is custom!';
 };
 
-// Main redner method calls other methods directly (without "this").
-var render = function render() {
+function render() {
+  var _this = this;
+
   return _react2.default.createElement(
     'div',
     { className: 'component' },
     _react2.default.createElement(
       'h2',
       null,
-      'Composable Component (without ',
       _react2.default.createElement(
         'code',
         null,
         'this'
       ),
-      ') Alternative'
+      ' is Composable'
     ),
     _react2.default.createElement(
       'div',
@@ -20454,7 +20608,7 @@ var render = function render() {
         'Props Message'
       ),
       ': ',
-      component.props.message
+      this.props.message
     ),
     _react2.default.createElement(
       'div',
@@ -20476,7 +20630,7 @@ var render = function render() {
         'State Value'
       ),
       ': ',
-      component.state.someState
+      this.state.someState
     ),
     _react2.default.createElement(
       'div',
@@ -20484,36 +20638,33 @@ var render = function render() {
       _react2.default.createElement('input', { type: 'text', ref: 'myInput', placeholder: 'Type something' }),
       _react2.default.createElement(
         'button',
-        { onClick: onEvent },
+        { onClick: function onClick(e) {
+            return _this.onEvent(e);
+          } },
         'Change State Value'
       )
     )
   );
-};
+}
 
-// Return a custom component, with properties defined above injected into it
-// whilst also defining statis properties on the function itself.
-var ComposableComponent = function ComposableComponent(props, context) {
-  ComposableComponent.displayName = displayName;
-  ComposableComponent.propTypes = propTypes;
-  ComposableComponent.defaultProps = defaultProps;
-
-  // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
-  // this since it will create a new object with a new context).
-  return Object.assign(component, {
+function ComposableComponent(props, context) {
+  return _extends({}, _react2.default.Component.prototype, {
+    displayName: displayName,
     props: props,
     context: context,
     state: initialState,
     componentDidMount: componentDidMount,
-    shouldComponentUpdate: shouldComponentUpdate,
+    onEvent: onEvent,
     render: render
   });
-};
+}
 
-// Export ComposableComponent function as a React component.
+ComposableComponent.propTypes = propTypes;
+ComposableComponent.defaultProps = defaultProps;
+
 exports.default = ComposableComponent;
 
-},{"prop-types":20,"react":27}],32:[function(require,module,exports){
+},{"prop-types":20,"react":27}],33:[function(require,module,exports){
 // This is a higher-order container component, using the style of the
 // ComposableComponentNoThis example.
 
@@ -20533,9 +20684,9 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _StatelessComponent = require('./StatelessComponent');
+var _Stateless = require('./Stateless');
 
-var _StatelessComponent2 = _interopRequireDefault(_StatelessComponent);
+var _Stateless2 = _interopRequireDefault(_Stateless);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20589,7 +20740,7 @@ var ContainerComponent = function ContainerComponent(props, context) {
         null,
         'A higher-order container component rendering a a lower-level stateless component.'
       ),
-      _react2.default.createElement(_StatelessComponent2.default, {
+      _react2.default.createElement(_Stateless2.default, {
         message: component.props.message,
         higherOrderState: component.state.someState,
         customFunc: customFunc,
@@ -20610,7 +20761,7 @@ var ContainerComponent = function ContainerComponent(props, context) {
 
 exports.default = ContainerComponent;
 
-},{"./StatelessComponent":33,"prop-types":20,"react":27}],33:[function(require,module,exports){
+},{"./Stateless":34,"prop-types":20,"react":27}],34:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -20675,7 +20826,7 @@ var StatelessComponent = function StatelessComponent(_ref) {
     _react2.default.createElement(
       'h2',
       null,
-      'Stateless Component'
+      'Stateless'
     ),
     _react2.default.createElement(
       'div',
@@ -20731,7 +20882,7 @@ var StatelessComponent = function StatelessComponent(_ref) {
 
 exports.default = StatelessComponent;
 
-},{"prop-types":20,"react":27}],34:[function(require,module,exports){
+},{"prop-types":20,"react":27}],35:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -20746,57 +20897,55 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ClassicalComponent = require('./ClassicalComponent.js');
+var _ComposableDepInjection = require('./ComposableDepInjection');
 
-var _ClassicalComponent2 = _interopRequireDefault(_ClassicalComponent);
+var _ComposableDepInjection2 = _interopRequireDefault(_ComposableDepInjection);
 
-var _ComposableComponent = require('./ComposableComponent.js');
+var _ComposableClosure = require('./ComposableClosure');
 
-var _ComposableComponent2 = _interopRequireDefault(_ComposableComponent);
+var _ComposableClosure2 = _interopRequireDefault(_ComposableClosure);
 
-var _ComposableComponentNoThis = require('./ComposableComponentNoThis.js');
+var _ComposableNested = require('./ComposableNested');
 
-var _ComposableComponentNoThis2 = _interopRequireDefault(_ComposableComponentNoThis);
+var _ComposableNested2 = _interopRequireDefault(_ComposableNested);
 
-var _ComposableComponentNoThisAlt = require('./ComposableComponentNoThisAlt.js');
+var _ComposableThis = require('./ComposableThis');
 
-var _ComposableComponentNoThisAlt2 = _interopRequireDefault(_ComposableComponentNoThisAlt);
+var _ComposableThis2 = _interopRequireDefault(_ComposableThis);
 
-var _ContainerComponent = require('./ContainerComponent.js');
+var _Container = require('./Container');
 
-var _ContainerComponent2 = _interopRequireDefault(_ContainerComponent);
+var _Container2 = _interopRequireDefault(_Container);
+
+var _Classical = require('./Classical');
+
+var _Classical2 = _interopRequireDefault(_Classical);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var msg = "This is my component. There are many like it, but this one is mine.";
+// An example piece of content to be passed to components as a prop.
 
-// NOTE: Change the filename of the component module imported to `MyComponent`
-// to test different component styles.
+
+// NOTE: `CreateClasst.js` is now deprecated as of React v15.
 //
-// Valid values include:
-// - 'ClassicalComponent.js'
-// - 'ComposableComponent.js'
-// - 'ComposableComponentNoThis.js'
-// - 'ContainerComponent.js'
-//
-// NOTE: `CreateClassComponent.js` is now deprecated as of React v15.
-//
-// NOTE: `StatelessFunctionalComponent.js` is loaded by `ContainerComponent.js`
+// NOTE: `Stateless.js` is loaded by `Container.js`
 // and has dependencies (e.g., event handler prop) which is provided by the
 // container component. You can't include it here, directly, without defining
 // the required props first.
 
+var msg = "This is my component. There are many like it, but this one is mine.";
 
 _reactDom2.default.render(_react2.default.createElement(
   'div',
   null,
-  _react2.default.createElement(_ContainerComponent2.default, { message: msg }),
-  _react2.default.createElement(_ComposableComponent2.default, { message: msg }),
-  _react2.default.createElement(_ComposableComponentNoThis2.default, { message: msg }),
-  _react2.default.createElement(_ComposableComponentNoThisAlt2.default, { message: msg }),
-  _react2.default.createElement(_ClassicalComponent2.default, { message: msg })
+  _react2.default.createElement(_ComposableDepInjection2.default, { message: msg }),
+  _react2.default.createElement(_ComposableClosure2.default, { message: msg }),
+  _react2.default.createElement(_ComposableNested2.default, { message: msg }),
+  _react2.default.createElement(_ComposableThis2.default, { message: msg }),
+  _react2.default.createElement(_Container2.default, { message: msg }),
+  _react2.default.createElement(_Classical2.default, { message: msg })
 ), document.getElementById('app-container'));
 
-},{"./ClassicalComponent.js":28,"./ComposableComponent.js":29,"./ComposableComponentNoThis.js":30,"./ComposableComponentNoThisAlt.js":31,"./ContainerComponent.js":32,"prop-types":20,"react":27,"react-dom":24}]},{},[34])
+},{"./Classical":28,"./ComposableClosure":29,"./ComposableDepInjection":30,"./ComposableNested":31,"./ComposableThis":32,"./Container":33,"prop-types":20,"react":27,"react-dom":24}]},{},[35])
 
 //# sourceMappingURL=application.js.map

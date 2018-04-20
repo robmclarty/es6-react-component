@@ -5,7 +5,7 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import StatelessComponent from './StatelessComponent'
+import StatelessComponent from './Stateless'
 
 const ContainerComponent = (props, context) => {
   ContainerComponent.displayName = 'Container'

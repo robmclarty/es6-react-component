@@ -52,7 +52,7 @@ const customFunc = () => 'This is custom!'
 // Main redner method calls other methods directly (without "this").
 const render = () => (
   <div className="component">
-    <h2>Composable Component (without <code>this</code>) Alternative</h2>
+    <h2>Modular Closure</h2>
     <div><b>Props Message</b>: {component.props.message}</div>
     <div><b>Custom Function Output</b>: {customFunc()}</div>
     <div><b>State Value</b>: {component.state.someState}</div>

@@ -48,7 +48,7 @@ const StatelessComponent = ({
   // can store its reference in a local variable for use in my event handler.
   return (
     <div className="sub-component">
-      <h2>Stateless Component</h2>
+      <h2>Stateless</h2>
       <div><b>Props Message</b>: {message}</div>
       <div><b>Custom Function Output</b>: {customFunc()}</div>
       <div><b>State Value</b>: {higherOrderState}</div>

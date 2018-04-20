@@ -2,6 +2,47 @@
 
 ![Screenshot](screenshot.png)
 
+These are examples of alternative patterns for creating React components.
+
+## Why?
+
+I'm just going to say this right off the bat: I'm not a fan of OOP, and I don't
+think adding `class` to Javascript is a benefit.
+
+I prefer composition over inheritance in almost all cases, and would rather use
+Javascript's wonderfully expressive, and simple, features like functions and
+object literals to create reusable modules.
+
+## But... Facebook's examples use `class`
+
+A lot of Java developers have moved over to JS and made a lot of noise to make
+it look like what they're used to. That doesn't mean you should do it too.
+Faceook's interest is to bow to popular demand. Popular demand is what has given
+us such jewels of civilization as Donald Trump, Rob Ford, and Lottery Tickets.
+There's more than one way to skin a cat, and some of those ways are easier, more
+maintainable, more intuitive, and ultimately less expensive to work with.
+
+## Object's without classes? WTF?
+
+Yes, you can make objects without inheriting from a class. Don't worry I'll
+hold your hand and show you the way to enlightenment.
+
+## But isn't doing it the Facebook way safer/more optimized/faster?
+
+No, not really. One composable example is actually less resource hungry and a
+tiny bit faster, whereas another uses slightly more memory. In all, each
+example is roughly similar in performance, memory usage, and heap pattern. You
+should feel safe using any example.
+
+The biggest difference lays in the code itself, and imo the composable pattern
+is better in that it is more intuitive, obvious, and easier to maintain which
+should save time in the long run by minimizing errors (and making them more
+visible when they happen) and by being more malleable, making the codebase more
+easily extensible without requiring a lot of reworking. For example, one of the
+biggest issues with OOP is the classification hierarchy, whereby if some class
+in the chain needs to be redefined, it causes a ripple-effect throughout the
+code with all the modules which have a related dependency to that changed-class.
+
 This is my attempt at defining various patterns for building React components using
 [ES6 syntax](https://people.mozilla.org/~jorendorff/es6-draft.html)
 and
