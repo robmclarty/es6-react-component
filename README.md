@@ -77,7 +77,7 @@ be parsed even faster by the browser, and imo a heck of a lot easier to reason
 about (read: faster development with fewer errors).
 
 In testing, I've found each pattern to be roughly equivalent performance-wise.
-The biggest difference lays in the code structure itself. I think the composable
+The biggest difference lies in the code structure itself. I think the composable
 examples are easier to read, easier to manipulate, and require less of a
 developer's mental resources to construct, extend, maintain, and upgrade. For
 this reason, I prefer not using classical components.
