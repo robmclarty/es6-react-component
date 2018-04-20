@@ -11,6 +11,8 @@ import PropTypes from 'prop-types'
 // container component. You can't include it here, directly, without defining
 // the required props first.
 
+console.log(React.Component.prototype)
+
 import ComposableDepInjection from './ComposableDepInjection'
 import ComposableClosure from './ComposableClosure'
 import ComposableNested from './ComposableNested'

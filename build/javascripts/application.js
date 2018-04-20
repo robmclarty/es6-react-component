@@ -20354,14 +20354,14 @@ var render = function render(component) {
 
 // Return a custom component, with properties defined above injected into it
 // whilst also defining statis properties on the function itself.
-var PureComponent = function PureComponent(props, context) {
+var MyComponent = function MyComponent(props, context) {
   // Create a new object composed of the React Component prototype, to be used
   // as the target of `props`, `state`, and `setState`.
   var component = _extends({}, _react2.default.Component.prototype);
 
-  PureComponent.displayName = displayName;
-  PureComponent.propTypes = propTypes;
-  PureComponent.defaultProps = defaultProps;
+  MyComponent.displayName = displayName;
+  MyComponent.propTypes = propTypes;
+  MyComponent.defaultProps = defaultProps;
 
   // Use `Object.assign` to mutate `component` (ES6 spread syntax cannot do
   // this since it will create a new object with a new context).
@@ -20369,7 +20369,7 @@ var PureComponent = function PureComponent(props, context) {
     props: props,
     context: context,
     state: initialState
-  }, refs, {
+  }, refs, { // React is using an attribute called `refs` already, so custom refs are simply mixed in at the root-level here
     componentDidMount: componentDidMount(component),
     shouldComponentUpdate: shouldComponentUpdate(component),
     render: render(component)
@@ -20377,7 +20377,7 @@ var PureComponent = function PureComponent(props, context) {
 };
 
 // Export PureComponent function as a React component.
-exports.default = PureComponent;
+exports.default = MyComponent;
 
 },{"prop-types":20,"react":27}],31:[function(require,module,exports){
 // This is a variation of ComposableComponent which aims to get rid of `this`
@@ -20923,9 +20923,6 @@ var _Classical2 = _interopRequireDefault(_Classical);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// An example piece of content to be passed to components as a prop.
-
-
 // NOTE: `CreateClasst.js` is now deprecated as of React v15.
 //
 // NOTE: `Stateless.js` is loaded by `Container.js`
@@ -20933,6 +20930,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // container component. You can't include it here, directly, without defining
 // the required props first.
 
+console.log(_react2.default.Component.prototype);
+
+// An example piece of content to be passed to components as a prop.
 var msg = "This is my component. There are many like it, but this one is mine.";
 
 _reactDom2.default.render(_react2.default.createElement(
