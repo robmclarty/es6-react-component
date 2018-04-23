@@ -1,6 +1,6 @@
 {
   "name": "es6-react-component",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Examples of different patterns for composing React components using ES6.",
   "main": "app/app.jsx",
   "scripts": {
