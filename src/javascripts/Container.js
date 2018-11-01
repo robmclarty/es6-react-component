@@ -1,8 +1,6 @@
 // This is a higher-order container component, using the style of the
 // ComposableComponentNoThis example.
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import StatelessComponent from './Stateless'

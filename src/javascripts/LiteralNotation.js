@@ -3,8 +3,6 @@
 // closer to what the old `React.createClass()` looked like.
 // ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 

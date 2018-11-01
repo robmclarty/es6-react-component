@@ -4,8 +4,6 @@
 // are coming from. This, so far, is my preferred method of React component
 // composition.
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 

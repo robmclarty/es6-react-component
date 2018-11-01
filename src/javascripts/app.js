@@ -1,5 +1,3 @@
-'use strict'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
@@ -13,6 +11,7 @@ import PropTypes from 'prop-types'
 
 console.log(React.Component.prototype)
 
+import HookedComponent from './Hooked'
 import ComposableDepInjection from './ComposableDepInjection'
 import ComposableClosure from './ComposableClosure'
 import ComposableNested from './ComposableNested'
@@ -25,6 +24,7 @@ const msg = "This is my component. There are many like it, but this one is mine.
 
 ReactDOM.render(
   <div>
+    <HookedComponent message={msg} />
     <ComposableDepInjection message={msg} />
     <ComposableClosure message={msg} />
     <ComposableNested message={msg} />

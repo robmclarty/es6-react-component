@@ -2,8 +2,6 @@
 // from the React.Component.prototype and a mix of custom functions, some of
 // which will override the defaults of the prototype (e.g., render()).
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 

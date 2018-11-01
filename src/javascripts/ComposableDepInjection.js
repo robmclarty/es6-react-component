@@ -2,8 +2,6 @@
 // take in the `component` as an injected dependency/parameter, thus making each
 // function a standalone bit of functionality that can more easily be tested.
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 

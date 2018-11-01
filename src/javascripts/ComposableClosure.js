@@ -2,8 +2,6 @@
 // to nest everything into the main function and could instead put everything
 // on the same level within the module's scope.
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 

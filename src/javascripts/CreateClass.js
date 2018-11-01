@@ -5,8 +5,6 @@
 // This is an example of composing a React component in the more traditional
 // way using the React.createClass() method.
 
-'use strict'
-
 import React from 'react'
 
 const CreateClassicalComponent = React.createClass({

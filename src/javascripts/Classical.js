@@ -18,8 +18,6 @@
 //
 // IMHO ignore everything to do with `class` and learn how to use JS (hint: it's not Java ;)
 
-'use strict'
-
 import React from 'react'
 import PropTypes from 'prop-types'
 
